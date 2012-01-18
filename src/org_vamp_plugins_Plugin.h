@@ -39,6 +39,86 @@ JNIEXPORT jstring JNICALL Java_org_vamp_1plugins_Plugin_getDescription
 JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getPluginVersion
   (JNIEnv *, jobject);
 
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    initialise
+ * Signature: (III)Z
+ */
+JNIEXPORT jboolean JNICALL Java_org_vamp_1plugins_Plugin_initialise
+  (JNIEnv *, jobject, jint, jint, jint);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    reset
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_vamp_1plugins_Plugin_reset
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getInputDomain
+ * Signature: ()Lorg/vamp_plugins/Plugin/InputDomain;
+ */
+JNIEXPORT jobject JNICALL Java_org_vamp_1plugins_Plugin_getInputDomain
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getPreferredBlockSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getPreferredBlockSize
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getPreferredStepSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getPreferredStepSize
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getMinChannelCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getMinChannelCount
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getMaxChannelCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getMaxChannelCount
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getOutputDescriptors
+ * Signature: ()[Lorg/vamp_plugins/OutputDescriptor;
+ */
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_Plugin_getOutputDescriptors
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    process
+ * Signature: ([[FLorg/vamp_plugins/RealTime;)Ljava/util/TreeMap;
+ */
+JNIEXPORT jobject JNICALL Java_org_vamp_1plugins_Plugin_process
+  (JNIEnv *, jobject, jobjectArray, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getRemainingFeatures
+ * Signature: ()Ljava/util/TreeMap;
+ */
+JNIEXPORT jobject JNICALL Java_org_vamp_1plugins_Plugin_getRemainingFeatures
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
