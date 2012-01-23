@@ -16,6 +16,12 @@ public class test
 			       "name: " + p.getName() + "; " + 
 			       "description: " + p.getDescription() + "; " +
 			       "version: " + p.getPluginVersion());
+	    Plugin.InputDomain domain = p.getInputDomain();
+	    if (domain == Plugin.InputDomain.TimeDomain) {
+		System.out.println("This is a time-domain plugin");
+	    } else {
+		System.out.println("This is a frequency-domain plugin");
+	    }
 	} catch (PluginLoader.LoadFailedException e) {
 	    System.out.println("Plugin load failed");
 	}
