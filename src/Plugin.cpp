@@ -7,6 +7,13 @@
 using Vamp::Plugin;
 using std::string;
 
+jint
+Java_org_vamp_1plugins_Plugin_getVampApiVersion(JNIEnv *env, jobject obj)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    return p->getVampApiVersion();
+}    
+
 jstring
 Java_org_vamp_1plugins_Plugin_getIdentifier(JNIEnv *env, jobject obj)
 {
@@ -26,6 +33,20 @@ Java_org_vamp_1plugins_Plugin_getDescription(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getDescription().c_str());
+}
+
+jstring
+Java_org_vamp_1plugins_Plugin_getMaker(JNIEnv *env, jobject obj)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    return env->NewStringUTF(p->getMaker().c_str());
+}
+
+jstring
+Java_org_vamp_1plugins_Plugin_getCopyright(JNIEnv *env, jobject obj)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    return env->NewStringUTF(p->getCopyright().c_str());
 }
 
 jint
