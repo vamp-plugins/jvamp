@@ -28,4 +28,4 @@ public class OutputDescriptor {
 	sampleType = SampleType.OneSamplePerStep;
 	hasDuration = false;
     }
-};
+}

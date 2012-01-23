@@ -35,3 +35,12 @@ Java_org_vamp_1plugins_Plugin_getPluginVersion(JNIEnv *env, jobject obj)
     return p->getPluginVersion();
 }
 
+jboolean
+Java_org_vamp_1plugins_Plugin_initialise(JNIEnv *env, jobject obj,
+					 jint inputChannels, jint stepSize,
+					 jint blockSize)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    return p->initialise(inputChannels, stepSize, blockSize);
+}
+

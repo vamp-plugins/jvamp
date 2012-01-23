@@ -9,10 +9,25 @@ public class Plugin
     private long nativeHandle;
     protected Plugin(long handle) { nativeHandle = handle; }
 
+    // PluginBase methods
+
+    public native int getVampApiVersion();
     public native String getIdentifier();
     public native String getName();
     public native String getDescription();
+    public native String getMaker();
+    public native String getCopyright();
     public native int getPluginVersion();
+
+    public native ParameterDescriptor[] getParameterDescriptors();
+    public native float getParameter(String identifier);
+    public native void setParameter(String identifier, float value);
+
+    public native String[] getPrograms();
+    public native String getCurrentProgram();
+    public native void selectProgram(String program);
+
+    // Plugin methods
 
     public native boolean initialise(int inputChannels,
 				     int stepSize,

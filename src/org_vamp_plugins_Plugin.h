@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     org_vamp_plugins_Plugin
+ * Method:    getVampApiVersion
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getVampApiVersion
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
  * Method:    getIdentifier
  * Signature: ()Ljava/lang/String;
  */
@@ -33,11 +41,75 @@ JNIEXPORT jstring JNICALL Java_org_vamp_1plugins_Plugin_getDescription
 
 /*
  * Class:     org_vamp_plugins_Plugin
+ * Method:    getMaker
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_vamp_1plugins_Plugin_getMaker
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getCopyright
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_vamp_1plugins_Plugin_getCopyright
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
  * Method:    getPluginVersion
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_org_vamp_1plugins_Plugin_getPluginVersion
   (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getParameterDescriptors
+ * Signature: ()[Lorg/vamp_plugins/ParameterDescriptor;
+ */
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_Plugin_getParameterDescriptors
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getParameter
+ * Signature: (Ljava/lang/String;)F
+ */
+JNIEXPORT jfloat JNICALL Java_org_vamp_1plugins_Plugin_getParameter
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    setParameter
+ * Signature: (Ljava/lang/String;F)V
+ */
+JNIEXPORT void JNICALL Java_org_vamp_1plugins_Plugin_setParameter
+  (JNIEnv *, jobject, jstring, jfloat);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getPrograms
+ * Signature: ()[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_Plugin_getPrograms
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    getCurrentProgram
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_org_vamp_1plugins_Plugin_getCurrentProgram
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
+ * Method:    selectProgram
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_org_vamp_1plugins_Plugin_selectProgram
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     org_vamp_plugins_Plugin
