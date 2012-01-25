@@ -5,6 +5,7 @@
 #include "handle.h"
 
 using Vamp::Plugin;
+using Vamp::PluginBase;
 using std::string;
 
 jint
@@ -76,13 +77,21 @@ Java_org_vamp_1plugins_Plugin_setParameter(JNIEnv *env, jobject obj,
     p->setParameter(s, f);
     env->ReleaseStringUTFChars(param, s);
 }
-/*
+
 jobjectArray
 Java_org_vamp_1plugins_Plugin_getPrograms(JNIEnv *env, jobject obj)
 {
-//!!!
+    Plugin *p = getHandle<Plugin>(env, obj);
+    PluginBase::ProgramList programs = p->getPrograms();
+    jobjectArray result = env->NewObjectArray
+	(programs.size(), env->FindClass("java/lang/String"), 0);
+    for (int i = 0; i < programs.size(); ++i) {
+	env->SetObjectArrayElement(result, i,
+				   env->NewStringUTF(programs[i].c_str()));
+    }
+    return result;
 }
-*/
+
 jstring
 Java_org_vamp_1plugins_Plugin_getCurrentProgram(JNIEnv *env, jobject obj)
 {
@@ -170,7 +179,19 @@ jobjectArray
 Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
-    //!!!
+    Plugin::OutputList outputs = p->getOutputDescriptors();
+    jclass descClass = env->FindClass("org/vamp_plugins/OutputDescriptor");
+    jobjectArray result = env->NewObjectArray(outputs.size(), descClass, 0);
+    for (int i = 0; i < outputs.size(); ++i) {
+	jmethodID ctor = env->GetMethodID(descClass, "<init>", "(V)V");
+	jobject descriptor = env->NewObject(descClass, ctor);
+	env->SetObjectField(descriptor, env->GetFieldID(descClass, "identifier", "Ljava/lang/String;"), env->NewStringUTF(outputs[i].identifier.c_str()));
+
+	//!!!
+
+
+	env->SetObjectArrayElement(result, i, descriptor);
+    }
     return 0;
 }
 
