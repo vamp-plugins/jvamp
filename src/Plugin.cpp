@@ -60,6 +60,35 @@ Java_org_vamp_1plugins_Plugin_getPluginVersion(JNIEnv *env, jobject obj)
     return p->getPluginVersion();
 }
 
+jobjectArray
+Java_org_vamp_1plugins_Plugin_getParameterDescriptors(JNIEnv *env, jobject obj)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    PluginBase::ParameterList params = p->getParameterDescriptors();
+    jclass descClass = env->FindClass("org/vamp_plugins/ParameterDescriptor");
+    jobjectArray result = env->NewObjectArray(params.size(), descClass, 0);
+    for (int i = 0; i < params.size(); ++i) {
+
+	jmethodID ctor = env->GetMethodID(descClass, "<init>", "()V");
+	jobject desc = env->NewObject(descClass, ctor);
+
+	setStringField(env, desc, "identifier", params[i].identifier);
+	setStringField(env, desc, "name", params[i].name);
+	setStringField(env, desc, "description", params[i].description);
+	setStringField(env, desc, "unit", params[i].unit);
+	setFloatField(env, desc, "minValue", params[i].minValue);
+	setFloatField(env, desc, "maxValue", params[i].maxValue);
+	setFloatField(env, desc, "defaultValue", params[i].defaultValue);
+	setBooleanField(env, desc, "isQuantized", params[i].isQuantized);
+	setFloatField(env, desc, "quantizeStep", params[i].quantizeStep);
+	setStringArrayField(env, desc, "valueNames", params[i].valueNames);
+
+	env->SetObjectArrayElement(result, i, desc);
+    }
+
+    return result;
+}
+
 jfloat
 Java_org_vamp_1plugins_Plugin_getParameter(JNIEnv *env, jobject obj,
 					   jstring param)

@@ -13,15 +13,20 @@ public class test
 	
 	try {
 	    Plugin p = loader.loadPlugin(key, 44100);
-	    System.out.println("identifier: " + p.getIdentifier() + "; " +
-			       "name: " + p.getName() + "; " + 
-			       "description: " + p.getDescription() + "; " +
-			       "version: " + p.getPluginVersion());
+	    System.out.println("identifier: " + p.getIdentifier());
+	    System.out.println("name: " + p.getName());
+	    System.out.println("description: " + p.getDescription());
+	    System.out.println("version: " + p.getPluginVersion());
 	    Plugin.InputDomain domain = p.getInputDomain();
 	    if (domain == Plugin.InputDomain.TimeDomain) {
 		System.out.println("This is a time-domain plugin");
 	    } else {
 		System.out.println("This is a frequency-domain plugin");
+	    }
+	    ParameterDescriptor[] params = p.getParameterDescriptors();
+	    System.out.println("Plugin has " + params.length + " parameters(s)");
+	    for (int i = 0; i < params.length; ++i) {
+		System.out.println(i + ": " + params[i].identifier + " (" + params[i].name + ")");
 	    }
 	    String[] progs = p.getPrograms();
 	    System.out.println("Plugin has " + progs.length + " program(s)");
