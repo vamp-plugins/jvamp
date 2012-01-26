@@ -259,18 +259,40 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 }
 
 jobject
-Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray, jobject)
+Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray data, jobject timestamp)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
-    //!!!
-    return 0;
+
+    Vamp::RealTime rt;
+    rt.sec = getIntField(env, timestamp, "sec");
+    rt.nsec = getIntField(env, timestamp, "nsec");
+    
+    int channels = env->GetArrayLength(data);
+    float **input = new float *[channels];
+    for (int c = 0; c < channels; ++c) {
+        jfloatArray cdata = (jfloatArray)env->GetObjectArrayElement(data, c);
+        input[c] = env->GetFloatArrayElements(cdata, 0);
+    }
+
+    Plugin::FeatureSet features = p->process(input, rt);
+
+    for (int c = 0; c < channels; ++c) {
+        jfloatArray cdata = (jfloatArray)env->GetObjectArrayElement(data, c);
+        env->ReleaseFloatArrayElements(cdata, input[c], 0);
+    }
+
+    delete[] input;
+
+    return convertFeatures(features);
 }
 
 jobject
 Java_org_vamp_1plugins_Plugin_getRemainingFeatures(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
-    //!!!
-    return 0;
+
+    Plugin::FeatureSet features = p->getRemainingFeatures();
+
+    return convertFeatures(features);
 }
 

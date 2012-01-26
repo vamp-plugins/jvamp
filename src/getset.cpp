@@ -3,6 +3,14 @@
 
 #include <iostream>
 
+int
+getIntField(JNIEnv *env, jobject obj, std::string name)
+{
+    jclass cls = env->GetObjectClass(obj);
+    return env->GetObjectField(obj,
+			       env->GetFieldID(cls, name.c_str(), "I"));
+}
+
 void
 setStringField(JNIEnv *env, jobject obj, std::string name, std::string value)
 {

@@ -7,6 +7,9 @@
 #include <string>
 #include <vector>
 
+extern int
+getIntField(JNIEnv *env, jobject obj, std::string name);
+
 extern void
 setStringField(JNIEnv *env, jobject obj, std::string name, std::string value);
 
