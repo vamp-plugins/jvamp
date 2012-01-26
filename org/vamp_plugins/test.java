@@ -7,7 +7,7 @@ public class test
 	
 	// This is a plugin we know we have installed
 //	String key = "vamp-example-plugins:percussiononsets";
-	String key = "qm-vamp-plugins:qm-onsets";
+	String key = "qm-vamp-plugins:qm-onsetdetector";
 
 	PluginLoader loader = PluginLoader.getInstance();
 	
@@ -27,6 +27,11 @@ public class test
 	    System.out.println("Plugin has " + progs.length + " program(s)");
 	    for (int i = 0; i < progs.length; ++i) {
 		System.out.println(i + ": " + progs[i]);
+	    }
+	    OutputDescriptor[] outputs = p.getOutputDescriptors();
+	    System.out.println("Plugin has " + outputs.length + " output(s)");
+	    for (int i = 0; i < outputs.length; ++i) {
+		System.out.println(i + ": " + outputs[i].identifier + " (sample type: " + outputs[i].sampleType + ")");
 	    }
 	} catch (PluginLoader.LoadFailedException e) {
 	    System.out.println("Plugin load failed");

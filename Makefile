@@ -1,8 +1,11 @@
 
 LIBRARY := libvamp-jni.so
-OBJFILES := src/PluginLoader.o src/Plugin.o
+OBJFILES := src/PluginLoader.o src/Plugin.o src/getset.o
 INCLUDES := -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
-CXXFLAGS := $(INCLUDES)
+CXXFLAGS := $(INCLUDES) -g
 
 $(LIBRARY): $(OBJFILES)
 	$(CXX) -shared -o $@ $^ -lvamp-hostsdk
+
+clean:
+	rm -f $(OBJFILES)

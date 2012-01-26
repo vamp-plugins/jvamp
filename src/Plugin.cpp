@@ -3,6 +3,9 @@
 #include <vamp-hostsdk/Plugin.h>
 
 #include "handle.h"
+#include "getset.h"
+
+#include <iostream>
 
 using Vamp::Plugin;
 using Vamp::PluginBase;
@@ -131,20 +134,14 @@ Java_org_vamp_1plugins_Plugin_getInputDomain(JNIEnv *env, jobject obj)
     Plugin *p = getHandle<Plugin>(env, obj);
     Plugin::InputDomain d = p->getInputDomain();
 
-    jclass enumClass = env->FindClass("java/lang/Enum");
     jclass ourEnumClass = env->FindClass("org/vamp_plugins/Plugin$InputDomain");
-
-    // Enum.valueOf(Class, String) returns Enum
-    jmethodID valueOfMethod = env->GetStaticMethodID
-	(enumClass, "valueOf",
-	 "(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;");
 
     std::string dname = "TimeDomain";
     if (d == Plugin::FrequencyDomain) dname = "FrequencyDomain";
 
     return env->CallStaticObjectMethod
-	(ourEnumClass, valueOfMethod, ourEnumClass,
-	 env->NewStringUTF(dname.c_str()));
+	(ourEnumClass, getEnumValueOfMethod(env), ourEnumClass,
+	 env->NewStringUTF(dname.c_str())); //!!! string leaked!
 }
 
 jint
@@ -183,16 +180,66 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     jclass descClass = env->FindClass("org/vamp_plugins/OutputDescriptor");
     jobjectArray result = env->NewObjectArray(outputs.size(), descClass, 0);
     for (int i = 0; i < outputs.size(); ++i) {
-	jmethodID ctor = env->GetMethodID(descClass, "<init>", "(V)V");
-	jobject descriptor = env->NewObject(descClass, ctor);
-	env->SetObjectField(descriptor, env->GetFieldID(descClass, "identifier", "Ljava/lang/String;"), env->NewStringUTF(outputs[i].identifier.c_str()));
 
-	//!!!
+	std::cerr << " *** " << i << std::endl;
 
+	jmethodID ctor = env->GetMethodID(descClass, "<init>", "()V");
 
-	env->SetObjectArrayElement(result, i, descriptor);
+	std::cerr << " ctor method: " << ctor << std::endl;
+
+	jobject desc = env->NewObject(descClass, ctor);
+
+	std::cerr << " new object created " << std::endl;
+
+	setStringField(env, desc, "identifier", outputs[i].identifier);
+	setStringField(env, desc, "name", outputs[i].name);
+	setStringField(env, desc, "description", outputs[i].description);
+	setStringField(env, desc, "unit", outputs[i].unit);
+	setBooleanField(env, desc, "hasFixedBinCount", outputs[i].hasFixedBinCount);
+	setIntField(env, desc, "binCount", outputs[i].binCount);
+	setStringArrayField(env, desc, "binNames", outputs[i].binNames);
+	setBooleanField(env, desc, "hasKnownExtents", outputs[i].hasKnownExtents);
+	setFloatField(env, desc, "minValue", outputs[i].minValue);
+	setFloatField(env, desc, "maxValue", outputs[i].maxValue);
+	setBooleanField(env, desc, "isQuantized", outputs[i].isQuantized);
+	setFloatField(env, desc, "quantizeStep", outputs[i].quantizeStep);
+	setFloatField(env, desc, "sampleRate", outputs[i].sampleRate);
+	setBooleanField(env, desc, "hasDuration", outputs[i].hasDuration);
+
+	jclass sampleTypeClass = env->FindClass
+	    ("org/vamp_plugins/OutputDescriptor$SampleType");
+
+	const char *stype;
+	switch (outputs[i].sampleType) {
+	case Plugin::OutputDescriptor::OneSamplePerStep:
+	    stype = "OneSamplePerStep";
+	    break;
+	case Plugin::OutputDescriptor::FixedSampleRate:
+	    stype = "FixedSampleRate";
+	    break;
+	case Plugin::OutputDescriptor::VariableSampleRate:
+	    stype = "VariableSampleRate";
+	    break;
+	}
+
+	std::cerr << "stype = " << stype << ", sample type class = " << sampleTypeClass << std::endl;
+
+	jobject sampleType = env->CallStaticObjectMethod
+    	    (sampleTypeClass, getEnumValueOfMethod(env),
+	     sampleTypeClass, env->NewStringUTF(stype));//!!! string leaked!
+
+	std::cerr << "sampleType = " << sampleType << std::endl;
+
+	setObjectField(env, desc, "sampleType",
+		       "Lorg/vamp_plugins/OutputDescriptor$SampleType;",
+		       sampleType);
+
+	std::cerr << "set enum OK" << std::endl;
+
+	env->SetObjectArrayElement(result, i, desc);
     }
-    return 0;
+
+    return result;
 }
 
 jobject
