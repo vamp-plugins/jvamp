@@ -181,15 +181,8 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     jobjectArray result = env->NewObjectArray(outputs.size(), descClass, 0);
     for (int i = 0; i < outputs.size(); ++i) {
 
-	std::cerr << " *** " << i << std::endl;
-
 	jmethodID ctor = env->GetMethodID(descClass, "<init>", "()V");
-
-	std::cerr << " ctor method: " << ctor << std::endl;
-
 	jobject desc = env->NewObject(descClass, ctor);
-
-	std::cerr << " new object created " << std::endl;
 
 	setStringField(env, desc, "identifier", outputs[i].identifier);
 	setStringField(env, desc, "name", outputs[i].name);
@@ -222,19 +215,13 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 	    break;
 	}
 
-	std::cerr << "stype = " << stype << ", sample type class = " << sampleTypeClass << std::endl;
-
 	jobject sampleType = env->CallStaticObjectMethod
     	    (sampleTypeClass, getEnumValueOfMethod(env),
 	     sampleTypeClass, env->NewStringUTF(stype));//!!! string leaked!
 
-	std::cerr << "sampleType = " << sampleType << std::endl;
-
 	setObjectField(env, desc, "sampleType",
 		       "Lorg/vamp_plugins/OutputDescriptor$SampleType;",
 		       sampleType);
-
-	std::cerr << "set enum OK" << std::endl;
 
 	env->SetObjectArrayElement(result, i, desc);
     }

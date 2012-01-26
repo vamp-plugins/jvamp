@@ -44,7 +44,6 @@ setObjectField(JNIEnv *env, jobject obj, std::string name, std::string type, job
 {
     jclass cls = env->GetObjectClass(obj);
     jfieldID field = env->GetFieldID(cls, name.c_str(), type.c_str());
-    std::cerr << "setObjectField: class = " << cls << ", object = " << obj << ", field = " << field << ", value = " << value << std::endl;
     env->SetObjectField(obj, field, value);
 }
 
