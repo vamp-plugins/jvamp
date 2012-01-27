@@ -258,6 +258,15 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     return result;
 }
 
+static jobject
+convertFeatures(const Plugin::FeatureSet &features)
+{
+    jobject result;
+    
+
+    //!!!
+}
+
 jobject
 Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray data, jobject timestamp)
 {
