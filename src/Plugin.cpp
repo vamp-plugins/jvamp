@@ -259,12 +259,31 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 }
 
 static jobject
-convertFeatures(const Plugin::FeatureSet &features)
+convertFeature(JNIEnv *env, const Plugin::Feature &feature)
+{
+    jclass featClass = env->FindClass("org/vamp_plugins/Plugin$Feature");
+    jmethodID ctor = env->GetMethodID(featClass, "<init>", "()V");
+    jobject jfeature = env->NewObject(featClass, ctor);
+
+    setBooleanField(env, jfeature, "hasTimestamp", feature.hasTimestamp);
+    setRealTimeField(env, jfeature, "timestamp", feature.timestamp);
+    setBooleanField(env, jfeature, "hasDuration", feature.hasDuration);
+    setRealTimeField(env, jfeature, "duration", feature.duration);
+    setFloatArrayField(env, jfeature, "values", feature.values);
+    setStringField(env, jfeature, "label", feature.label);
+
+    return jfeature;
+}
+
+static jobject
+convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
 {
     jobject result;
     
+    // FeatureSet is map<int, vector<Feature> > where Feature is a struct.
 
-    //!!!
+    
+
 }
 
 jobject
@@ -292,7 +311,7 @@ Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray dat
 
     delete[] input;
 
-    return convertFeatures(features);
+    return convertFeatures(env, features);
 }
 
 jobject
@@ -302,6 +321,6 @@ Java_org_vamp_1plugins_Plugin_getRemainingFeatures(JNIEnv *env, jobject obj)
 
     Plugin::FeatureSet features = p->getRemainingFeatures();
 
-    return convertFeatures(features);
+    return convertFeatures(env, features);
 }
 

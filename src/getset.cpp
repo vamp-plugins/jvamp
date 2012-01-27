@@ -48,11 +48,28 @@ setIntField(JNIEnv *env, jobject obj, std::string name, int value)
 }
 
 void
+setRealTimeField(JNIEnv *env, jobject obj, std::string name, Vamp::RealTime rt)
+{
+    jclass rtClass = env->FindClass("org/vamp_plugins/RealTime");
+    jmethodID ctor = env->GetMethodID(rtClass, "<init>", "(II)V");
+    jobject jrt = env->NewObject(rtClass, ctor, rt.sec, rt.nsec);
+    setObjectField(env, obj, name, "Lorg/vamp_plugins/RealTime;", jrt);
+}
+
+void
 setObjectField(JNIEnv *env, jobject obj, std::string name, std::string type, jobject value)
 {
     jclass cls = env->GetObjectClass(obj);
     jfieldID field = env->GetFieldID(cls, name.c_str(), type.c_str());
     env->SetObjectField(obj, field, value);
+}
+
+void
+setFloatArrayField(JNIEnv *env, jobject obj, std::string name, std::vector<float> values)
+{
+    jfloatArray jarr = env->NewFloatArray(values.size());
+    env->SetFloatArrayRegion(jarr, 0, values.size(), values.data());
+    setObjectField(env, obj, name, "[float", jarr);
 }
 
 void

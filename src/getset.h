@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <vamp-hostsdk/RealTime.h>
+
 extern int
 getIntField(JNIEnv *env, jobject obj, std::string name);
 
@@ -23,7 +25,13 @@ extern void
 setIntField(JNIEnv *env, jobject obj, std::string name, int value);
 
 extern void
+setRealTimeField(JNIEnv *env, jobject obj, std::string name, Vamp::RealTime value);
+
+extern void
 setObjectField(JNIEnv *env, jobject obj, std::string name, std::string type, jobject value);
+
+extern void
+setFloatArrayField(JNIEnv *env, jobject obj, std::string name, std::vector<float> value);
 
 extern void
 setStringArrayField(JNIEnv *env, jobject obj, std::string name, std::vector<std::string> value);
