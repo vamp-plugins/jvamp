@@ -281,9 +281,44 @@ convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
     jobject result;
     
     // FeatureSet is map<int, vector<Feature> > where Feature is a struct.
+    // We need to return a TreeMap<Integer, ArrayList<Feature>>
 
-    
+    jclass treeMapClass = env->FindClass("java/util/TreeMap");
+    jmethodID treeMapCtor = env->GetMethodID(treeMapClass, "<init>", "()V");
+    jmethodID inserter = env->GetMethodID
+	(treeMapClass, "put",
+	 "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
 
+    jclass listClass = env->FindClass("java/util/ArrayList");
+    jmethodID listCtor = env->GetMethodID(listClass, "<init>", "()V");
+    jmethodID adder = env->GetMethodID
+	(listClass, "add", "(Ljava/lang/Object;)Z");
+
+    jclass intClass = env->FindClass("java/lang/Integer");
+    jmethodID intCtor = env->GetMethodID(intClass, "<init>", "(I)V");
+
+    result = env->NewObject(treeMapClass, treeMapCtor);
+
+    for (Plugin::FeatureSet::const_iterator i = features.begin();
+	 i != features.end(); ++i) {
+	
+	int output = i->first;
+	const Plugin::FeatureList &fl = i->second;
+
+	jobject listObject = env->NewObject(listClass, listCtor);
+
+	for (Plugin::FeatureList::const_iterator j = fl.begin();
+	     j != fl.end(); ++j) {
+	    jobject feature = convertFeature(env, *j);
+	    (void)env->CallBooleanMethod(listObject, adder, feature);
+	}
+
+	jobject integer = env->NewObject(intClass, intCtor, output);
+
+	(void)env->CallObjectMethod(result, inserter, integer, listObject);
+    }
+
+    return result;
 }
 
 jobject
