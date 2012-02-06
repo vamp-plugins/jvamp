@@ -1,6 +1,9 @@
 
 package org.vamp_plugins;
 
+import java.util.ArrayList;
+import java.util.TreeMap;
+
 public class test
 {
     public static void main(String[] args) {
@@ -38,6 +41,16 @@ public class test
 	    for (int i = 0; i < outputs.length; ++i) {
 		System.out.println(i + ": " + outputs[i].identifier + " (sample type: " + outputs[i].sampleType + ")");
 	    }
+
+	    boolean b = p.initialise(1, 512, 1024);
+	    System.out.println("Plugin initialise returned " + b);
+	    
+	    //!!! todo: test process!
+
+	    TreeMap<Integer, ArrayList<Plugin.Feature>>
+		features = p.getRemainingFeatures();
+	    System.out.println("Plugin getRemainingFeatures returned features on " + features.size() + " different output(s)");
+
 	} catch (PluginLoader.LoadFailedException e) {
 	    System.out.println("Plugin load failed");
 	}
