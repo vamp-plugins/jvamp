@@ -20,7 +20,7 @@ Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
 {
     PluginLoader *inst = getHandle<PluginLoader>(env, obj);
     const char *kstr = env->GetStringUTFChars(key, 0);
-    Plugin *p = inst->loadPlugin(kstr, rate);
+    Plugin *p = inst->loadPlugin(kstr, rate, PluginLoader::ADAPT_ALL); //!!! args!
     env->ReleaseStringUTFChars(key, kstr);
     return (jlong)p;
 }

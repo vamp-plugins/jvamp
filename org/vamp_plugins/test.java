@@ -42,10 +42,22 @@ public class test
 		System.out.println(i + ": " + outputs[i].identifier + " (sample type: " + outputs[i].sampleType + ")");
 	    }
 
-	    boolean b = p.initialise(1, 512, 1024);
+	    boolean b = p.initialise(1, 0, 1024);
 	    System.out.println("Plugin initialise returned " + b);
 	    
-	    //!!! todo: test process!
+	    float[][] buffers = new float[1][1024];
+	    for (int block = 0; block < 1024; ++block) {
+		for (int i = 0; i < 1024; ++i) {
+		    buffers[0][i] = 0.0f;
+		}
+		if (block == 512) {
+		    buffers[0][0] = 1.0f;
+		}
+		RealTime timestamp = RealTime.frame2RealTime(block * 1024, 44100);
+		TreeMap<Integer, ArrayList<Plugin.Feature>>
+		    features = p.process(buffers, timestamp);
+		System.out.println("Plugin process returned features on " + features.size() + " different output(s)");
+	    }
 
 	    TreeMap<Integer, ArrayList<Plugin.Feature>>
 		features = p.getRemainingFeatures();
