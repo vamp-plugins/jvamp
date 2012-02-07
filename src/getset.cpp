@@ -69,7 +69,7 @@ setFloatArrayField(JNIEnv *env, jobject obj, std::string name, std::vector<float
 {
     jfloatArray jarr = env->NewFloatArray(values.size());
     env->SetFloatArrayRegion(jarr, 0, values.size(), values.data());
-    setObjectField(env, obj, name, "[float", jarr);
+    setObjectField(env, obj, name, "[F", jarr);
 }
 
 void

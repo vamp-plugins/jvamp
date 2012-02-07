@@ -3,6 +3,7 @@ package org.vamp_plugins;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.lang.RuntimeException;
 
 public class test
 {
@@ -42,8 +43,11 @@ public class test
 		System.out.println(i + ": " + outputs[i].identifier + " (sample type: " + outputs[i].sampleType + ")");
 	    }
 
-	    boolean b = p.initialise(1, 0, 1024);
+	    boolean b = p.initialise(1, 1024, 1024);
 	    System.out.println("Plugin initialise returned " + b);
+	    if (!b) {
+		throw new RuntimeException("Plugin initialise failed");
+	    }
 	    
 	    float[][] buffers = new float[1][1024];
 	    for (int block = 0; block < 1024; ++block) {
@@ -54,12 +58,12 @@ public class test
 		    buffers[0][0] = 1.0f;
 		}
 		RealTime timestamp = RealTime.frame2RealTime(block * 1024, 44100);
-		TreeMap<Integer, ArrayList<Plugin.Feature>>
+		TreeMap<Integer, ArrayList<Feature>>
 		    features = p.process(buffers, timestamp);
 		System.out.println("Plugin process returned features on " + features.size() + " different output(s)");
 	    }
 
-	    TreeMap<Integer, ArrayList<Plugin.Feature>>
+	    TreeMap<Integer, ArrayList<Feature>>
 		features = p.getRemainingFeatures();
 	    System.out.println("Plugin getRemainingFeatures returned features on " + features.size() + " different output(s)");
 

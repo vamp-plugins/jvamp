@@ -5,7 +5,7 @@ public class RealTime {
     public int sec;
     public int nsec;
 
-    RealTime(int s, int n) { sec = s; nsec = n; }
+    public RealTime(int s, int n) { sec = s; nsec = n; }
 
     static RealTime frame2RealTime(int frame, int sampleRate) {
 	//!!! warning! doesn't support -ve frame [unlike Vamp SDK version]

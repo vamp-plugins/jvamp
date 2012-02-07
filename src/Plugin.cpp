@@ -261,7 +261,7 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 static jobject
 convertFeature(JNIEnv *env, const Plugin::Feature &feature)
 {
-    jclass featClass = env->FindClass("org/vamp_plugins/Plugin$Feature");
+    jclass featClass = env->FindClass("org/vamp_plugins/Feature");
     jmethodID ctor = env->GetMethodID(featClass, "<init>", "()V");
     jobject jfeature = env->NewObject(featClass, ctor);
 

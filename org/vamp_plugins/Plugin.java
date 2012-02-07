@@ -45,18 +45,6 @@ public class Plugin
 
     public native OutputDescriptor[] getOutputDescriptors();
 
-    public class Feature {
-	public boolean hasTimestamp;
-	public RealTime timestamp;
-	public boolean hasDuration;
-	public RealTime duration;
-	public float[] values;
-	public String label;
-	Feature() {
-	    hasTimestamp = false; hasDuration = false;
-	}
-    };
-
 // "Pseudo-typedef antipattern - don't do this": http://www.ibm.com/developerworks/java/library/j-jtp02216/index.html
 // (I would like to!)
 //    public class FeatureList extends ArrayList<Feature>;
