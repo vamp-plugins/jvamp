@@ -14,6 +14,10 @@ public class RealTime {
 	int nsec = (int)((((double)frame * 1000000.0) / sampleRate) * 1000.0);
 	return new RealTime(sec, nsec);
     }
+
+    public String toString() {
+	return sec + ":" + nsec;
+    }
 }
 
 

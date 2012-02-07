@@ -3,10 +3,28 @@ package org.vamp_plugins;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.Map;
+import java.util.List;
 import java.lang.RuntimeException;
 
 public class test
 {
+    private static void printFeatures(Map<Integer, ArrayList<Feature>> features) {
+	for (Map.Entry<Integer, ArrayList<Feature>> mi : features.entrySet()) {
+	    System.out.print(mi.getKey() + ": ");
+	    for (Feature li : mi.getValue()) {
+		System.out.print("[" + li.timestamp + "= ");
+		for (float v : li.values) {
+		    System.out.print(v + " ");
+		}
+		System.out.print("] (\"");
+		System.out.print(li.label);
+		System.out.print("\") ");
+	    }
+	    System.out.println("");
+	}
+    }
+
     public static void main(String[] args) {
 	
 	// This is a plugin we know we have installed
@@ -55,17 +73,22 @@ public class test
 		    buffers[0][i] = 0.0f;
 		}
 		if (block == 512) {
-		    buffers[0][0] = 1.0f;
+		    buffers[0][0] = 0.5f;
+		    buffers[0][1] = -0.5f;
 		}
 		RealTime timestamp = RealTime.frame2RealTime(block * 1024, 44100);
 		TreeMap<Integer, ArrayList<Feature>>
 		    features = p.process(buffers, timestamp);
-		System.out.println("Plugin process returned features on " + features.size() + " different output(s)");
+
+		printFeatures(features);
 	    }
 
 	    TreeMap<Integer, ArrayList<Feature>>
 		features = p.getRemainingFeatures();
-	    System.out.println("Plugin getRemainingFeatures returned features on " + features.size() + " different output(s)");
+
+	    System.out.println("Results from getRemainingFeatures:");
+
+	    printFeatures(features);
 
 	} catch (PluginLoader.LoadFailedException e) {
 	    System.out.println("Plugin load failed");
