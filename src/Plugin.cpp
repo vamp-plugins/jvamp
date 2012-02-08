@@ -11,6 +11,14 @@ using Vamp::Plugin;
 using Vamp::PluginBase;
 using std::string;
 
+void
+Java_org_vamp_1plugins_Plugin_dispose(JNIEnv *env, jobject obj)
+{
+    Plugin *p = getHandle<Plugin>(env, obj);
+    setHandle<Plugin>(env, obj, 0);
+    delete p;
+}
+
 jint
 Java_org_vamp_1plugins_Plugin_getVampApiVersion(JNIEnv *env, jobject obj)
 {

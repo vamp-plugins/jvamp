@@ -9,6 +9,8 @@ public class Plugin
     private long nativeHandle;
     protected Plugin(long handle) { nativeHandle = handle; }
 
+    public native void dispose();
+
     // PluginBase methods
 
     public native int getVampApiVersion();

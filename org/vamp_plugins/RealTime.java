@@ -1,23 +1,32 @@
 
 package org.vamp_plugins;
 
-public class RealTime {
-    public int sec;
-    public int nsec;
+public class RealTime
+{
+    public RealTime(int s, int n) { initialise(s, n); }
 
-    public RealTime(int s, int n) { sec = s; nsec = n; }
+    public native void dispose();
 
-    static RealTime frame2RealTime(int frame, int sampleRate) {
-	//!!! warning! doesn't support -ve frame [unlike Vamp SDK version]
-	int sec = frame / sampleRate;
-	frame -= sec * sampleRate;
-	int nsec = (int)((((double)frame * 1000000.0) / sampleRate) * 1000.0);
-	return new RealTime(sec, nsec);
-    }
+    public native int sec();
+    public native int nsec();
 
-    public String toString() {
-	return sec + ":" + nsec;
-    }
+    public native int usec();
+    public native int msec();
+
+    /// Return a debug-type string to full precision
+    public native String toString();
+
+    /// Return a user-readable formatted string to the nearest millisecond
+    public native String toText();
+
+    public native static RealTime fromSeconds(double sec);
+    public native static RealTime fromMilliseconds(int msec);
+    
+    public native static RealTime frame2RealTime(long frame, int sampleRate);
+    public native static long realTime2Frame(RealTime r, int sampleRate);
+
+    private native void initialise(int s, int n);
+    private long nativeHandle;
 }
 
 

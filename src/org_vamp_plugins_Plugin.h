@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     org_vamp_plugins_Plugin
+ * Method:    dispose
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_vamp_1plugins_Plugin_dispose
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     org_vamp_plugins_Plugin
  * Method:    getVampApiVersion
  * Signature: ()I
  */
