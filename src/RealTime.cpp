@@ -60,20 +60,38 @@ Java_org_vamp_1plugins_RealTime_toText(JNIEnv *env, jobject obj)
 jobject
 Java_org_vamp_1plugins_RealTime_fromSeconds(JNIEnv *env, jclass cls, jdouble s)
 {
-    
+    jclass rtClass = env->FindClass("org/vamp_plugins/RealTime");
+    jmethodID rtCtor = env->GetMethodID(rtClass, "<init>", "(II)V");
+    RealTime rt = RealTime::fromSeconds(s);
+    return env->NewObject(rtClass, rtCtor, rt.sec, rt.nsec);
 }
 
-jobject Java_org_vamp_1plugins_RealTime_fromMilliseconds
-  (JNIEnv *env, jclass cls, jint);
-
-jobject Java_org_vamp_1plugins_RealTime_frame2RealTime
-  (JNIEnv *env, jclass cls, jlong, jint);
-
-jlong Java_org_vamp_1plugins_RealTime_realTime2Frame
-  (JNIEnv *env, jclass cls, jobject, jint);
-
-void Java_org_vamp_1plugins_RealTime_init(JNIEnv *env, jobject obj, jint sec, jint nsec)
+jobject Java_org_vamp_1plugins_RealTime_fromMilliseconds(JNIEnv *env, jclass cls, jint ms)
 {
+    jclass rtClass = env->FindClass("org/vamp_plugins/RealTime");
+    jmethodID rtCtor = env->GetMethodID(rtClass, "<init>", "(II)V");
+    RealTime rt = RealTime::fromMilliseconds(ms);
+    return env->NewObject(rtClass, rtCtor, rt.sec, rt.nsec);
+}
+
+jobject Java_org_vamp_1plugins_RealTime_frame2RealTime(JNIEnv *env, jclass cls, jlong frame, jint sampleRate)
+{
+    jclass rtClass = env->FindClass("org/vamp_plugins/RealTime");
+    jmethodID rtCtor = env->GetMethodID(rtClass, "<init>", "(II)V");
+    RealTime rt = RealTime::frame2RealTime(frame, sampleRate);
+    return env->NewObject(rtClass, rtCtor, rt.sec, rt.nsec);
+}
+
+jlong Java_org_vamp_1plugins_RealTime_realTime2Frame(JNIEnv *env, jclass cls, jobject obj, jint sampleRate)
+{
+    RealTime *rt = getHandle<RealTime>(env, obj);
+    return RealTime::realTime2Frame(*rt, sampleRate);
+}
+
+void Java_org_vamp_1plugins_RealTime_initialise(JNIEnv *env, jobject obj, jint sec, jint nsec)
+{
+    RealTime *rt = new RealTime(sec, nsec);
+    setHandle(env, obj, rt);
 }
 
 

@@ -334,9 +334,7 @@ Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray dat
 {
     Plugin *p = getHandle<Plugin>(env, obj);
 
-    Vamp::RealTime rt;
-    rt.sec = getIntField(env, timestamp, "sec");
-    rt.nsec = getIntField(env, timestamp, "nsec");
+    const Vamp::RealTime *const rt = getHandle<Vamp::RealTime>(env, timestamp);
     
     int channels = env->GetArrayLength(data);
     float **input = new float *[channels];
@@ -345,7 +343,7 @@ Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray dat
         input[c] = env->GetFloatArrayElements(cdata, 0);
     }
 
-    Plugin::FeatureSet features = p->process(input, rt);
+    Plugin::FeatureSet features = p->process(input, *rt);
 
     for (int c = 0; c < channels; ++c) {
         jfloatArray cdata = (jfloatArray)env->GetObjectArrayElement(data, c);

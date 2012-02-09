@@ -80,6 +80,8 @@ public class test
 		TreeMap<Integer, ArrayList<Feature>>
 		    features = p.process(buffers, timestamp);
 
+		timestamp.dispose();
+
 		printFeatures(features);
 	    }
 
@@ -89,6 +91,7 @@ public class test
 	    System.out.println("Results from getRemainingFeatures:");
 
 	    printFeatures(features);
+	    p.dispose();
 
 	} catch (PluginLoader.LoadFailedException e) {
 	    System.out.println("Plugin load failed");
