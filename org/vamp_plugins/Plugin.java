@@ -52,8 +52,15 @@ public class Plugin
 //    public class FeatureList extends ArrayList<Feature>;
 //    public class FeatureSet extends TreeMap<Integer, FeatureList>;
 
+    public TreeMap<Integer, ArrayList<Feature>>
+	process(float[][] inputBuffers,
+		RealTime timestamp) {
+	process(inputBuffers, 0, inputBuffers[0].length, timestamp);
+    }
+
     public native TreeMap<Integer, ArrayList<Feature>>
 	process(float[][] inputBuffers,
+		int offset, int n,
 		RealTime timestamp);
 
     public native TreeMap<Integer, ArrayList<Feature>>

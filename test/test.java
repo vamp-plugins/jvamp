@@ -1,11 +1,16 @@
 
-package org.vamp_plugins;
-
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.List;
 import java.lang.RuntimeException;
+
+import org.vamp_plugins.PluginLoader;
+import org.vamp_plugins.Plugin;
+import org.vamp_plugins.ParameterDescriptor;
+import org.vamp_plugins.OutputDescriptor;
+import org.vamp_plugins.Feature;
+import org.vamp_plugins.RealTime;
 
 public class test
 {
