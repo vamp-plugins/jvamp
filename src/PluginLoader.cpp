@@ -14,6 +14,20 @@ Java_org_vamp_1plugins_PluginLoader_initialise(JNIEnv *env, jobject obj)
     setHandle(env, obj, inst);
 }
 
+jobjectArray
+Java_org_vamp_1plugins_PluginLoader_listPlugins(JNIEnv *env, jobject obj)
+{
+    PluginLoader *inst = getHandle<PluginLoader>(env, obj);
+    PluginLoader::PluginKeyList plugins = inst->listPlugins();
+    jobjectArray result = env->NewObjectArray
+	(plugins.size(), env->FindClass("java/lang/String"), 0);
+    for (int i = 0; i < plugins.size(); ++i) {
+	env->SetObjectArrayElement(result, i,
+				   env->NewStringUTF(plugins[i].c_str()));
+    }
+    return result;
+}    
+
 jlong
 Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
 						     jstring key, jfloat rate)
@@ -27,3 +41,6 @@ Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
 
 
     
+//!!! todo: loadPlugin adapters
+//!!! todo: getPluginCategory
+
