@@ -55,12 +55,12 @@ public class Plugin
     public TreeMap<Integer, ArrayList<Feature>>
 	process(float[][] inputBuffers,
 		RealTime timestamp) {
-	process(inputBuffers, 0, inputBuffers[0].length, timestamp);
+	return process(inputBuffers, 0, timestamp);
     }
 
     public native TreeMap<Integer, ArrayList<Feature>>
 	process(float[][] inputBuffers,
-		int offset, int n,
+		int offset,
 		RealTime timestamp);
 
     public native TreeMap<Integer, ArrayList<Feature>>

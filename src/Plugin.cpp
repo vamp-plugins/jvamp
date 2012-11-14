@@ -330,17 +330,19 @@ convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
 }
 
 jobject
-Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray data, jobject timestamp)
+Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray data, jint offset, jobject timestamp)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
 
     const Vamp::RealTime *const rt = getHandle<Vamp::RealTime>(env, timestamp);
     
     int channels = env->GetArrayLength(data);
+    float **arr = new float *[channels];
     float **input = new float *[channels];
     for (int c = 0; c < channels; ++c) {
         jfloatArray cdata = (jfloatArray)env->GetObjectArrayElement(data, c);
-        input[c] = env->GetFloatArrayElements(cdata, 0);
+        arr[c] = env->GetFloatArrayElements(cdata, 0);
+	input[c] = arr[c] + offset;
     }
 
     Plugin::FeatureSet features = p->process(input, *rt);
@@ -351,6 +353,7 @@ Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray dat
     }
 
     delete[] input;
+    delete[] arr;
 
     return convertFeatures(env, features);
 }

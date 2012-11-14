@@ -7,21 +7,18 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     org_vamp_plugins_PluginLoader
- * Method:    loadPluginNative
- * Signature: (Ljava/lang/String;F)J
- */
+
 JNIEXPORT jlong JNICALL Java_org_vamp_1plugins_PluginLoader_loadPluginNative
   (JNIEnv *, jobject, jstring, jfloat);
 
-/*
- * Class:     org_vamp_plugins_PluginLoader
- * Method:    initialise
- * Signature: ()V
- */
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_listPlugins
+(JNIEnv *, jobject);
+
 JNIEXPORT void JNICALL Java_org_vamp_1plugins_PluginLoader_initialise
   (JNIEnv *, jobject);
+
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_getPluginCategory
+(JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

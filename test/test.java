@@ -38,8 +38,21 @@ public class test
 
 	PluginLoader loader = PluginLoader.getInstance();
 	
+	String[] plugins = loader.listPlugins();
+	System.out.println("We know " + plugins.length + " plugins");
+	for (int i = 0; i < plugins.length; ++i) {
+	    System.out.println(i + ": " + plugins[i]);
+	}
+
 	try {
 	    Plugin p = loader.loadPlugin(key, 44100);
+	    String[] cat = loader.getPluginCategory(key);
+	    System.out.print("category: ");
+	    for (int i = 0; i < cat.length; ++i) {
+		System.out.print(cat[i]);
+		if (i+1 < cat.length) System.out.print(" > ");
+	    }
+	    System.out.println("");
 	    System.out.println("identifier: " + p.getIdentifier());
 	    System.out.println("name: " + p.getName());
 	    System.out.println("description: " + p.getDescription());

@@ -33,7 +33,7 @@ public class PluginLoader
      * their plugin keys (suitable for passing to loadPlugin) in the
      * order in which they were found.
      */
-    public native ArrayList<String> listPlugins();
+    public native String[] listPlugins();
 
     /**
      * Load a native Vamp plugin from the plugin path. If the plugin
@@ -63,7 +63,7 @@ public class PluginLoader
      * If the plugin has no category information, return an empty
      * list.
      */
-    public native ArrayList<String> getPluginCategory(String key);
+    public native String[] getPluginCategory(String key);
 
     private PluginLoader() { initialise(); }
     private native long loadPluginNative(String key, float inputSampleRate);

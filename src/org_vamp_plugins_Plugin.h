@@ -189,7 +189,7 @@ JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_Plugin_getOutputDescriptor
  * Signature: ([[FLorg/vamp_plugins/RealTime;)Ljava/util/TreeMap;
  */
 JNIEXPORT jobject JNICALL Java_org_vamp_1plugins_Plugin_process
-  (JNIEnv *, jobject, jobjectArray, jobject);
+  (JNIEnv *, jobject, jobjectArray, jint, jobject);
 
 /*
  * Class:     org_vamp_plugins_Plugin
