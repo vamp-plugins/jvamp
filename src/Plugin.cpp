@@ -176,9 +176,12 @@ Java_org_vamp_1plugins_Plugin_getInputDomain(JNIEnv *env, jobject obj)
     std::string dname = "TimeDomain";
     if (d == Plugin::FrequencyDomain) dname = "FrequencyDomain";
 
-    return env->CallStaticObjectMethod
-	(ourEnumClass, getEnumValueOfMethod(env), ourEnumClass,
-	 env->NewStringUTF(dname.c_str())); //!!! string leaked!
+    jstring sn = env->NewStringUTF(dname.c_str());
+    jobject e = env->CallStaticObjectMethod
+	(ourEnumClass, getEnumValueOfMethod(env), ourEnumClass, sn);
+
+    env->DeleteLocalRef(sn);
+    return e;
 }
 
 jint
@@ -252,9 +255,10 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 	    break;
 	}
 
+	jstring sn = env->NewStringUTF(stype);
 	jobject sampleType = env->CallStaticObjectMethod
-    	    (sampleTypeClass, getEnumValueOfMethod(env),
-	     sampleTypeClass, env->NewStringUTF(stype));//!!! string leaked!
+    	    (sampleTypeClass, getEnumValueOfMethod(env), sampleTypeClass, sn);
+	env->DeleteLocalRef(sn);
 
 	setObjectField(env, desc, "sampleType",
 		       "Lorg/vamp_plugins/OutputDescriptor$SampleType;",
