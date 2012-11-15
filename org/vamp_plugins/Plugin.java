@@ -37,7 +37,7 @@ public class Plugin
 
     public native void reset();
     
-    public static enum InputDomain { TimeDomain, FrequencyDomain };
+    public static enum InputDomain { TIME_DOMAIN, FREQUENCY_DOMAIN };
     public native InputDomain getInputDomain();
     
     public native int getPreferredBlockSize();
