@@ -173,8 +173,8 @@ Java_org_vamp_1plugins_Plugin_getInputDomain(JNIEnv *env, jobject obj)
 
     jclass ourEnumClass = env->FindClass("org/vamp_plugins/Plugin$InputDomain");
 
-    std::string dname = "TimeDomain";
-    if (d == Plugin::FrequencyDomain) dname = "FrequencyDomain";
+    std::string dname = "TIME_DOMAIN";
+    if (d == Plugin::FrequencyDomain) dname = "FREQUENCY_DOMAIN";
 
     jstring sn = env->NewStringUTF(dname.c_str());
     jobject e = env->CallStaticObjectMethod
