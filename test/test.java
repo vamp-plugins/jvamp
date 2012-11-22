@@ -45,7 +45,7 @@ public class test
 	}
 
 	try {
-	    Plugin p = loader.loadPlugin(key, 44100);
+	    Plugin p = loader.loadPlugin(key, 44100, PluginLoader.AdapterFlags.ADAPT_ALL);
 	    String[] cat = loader.getPluginCategory(key);
 	    System.out.print("category: ");
 	    for (int i = 0; i < cat.length; ++i) {
@@ -58,7 +58,7 @@ public class test
 	    System.out.println("description: " + p.getDescription());
 	    System.out.println("version: " + p.getPluginVersion());
 	    Plugin.InputDomain domain = p.getInputDomain();
-	    if (domain == Plugin.InputDomain.TimeDomain) {
+	    if (domain == Plugin.InputDomain.TIME_DOMAIN) {
 		System.out.println("This is a time-domain plugin");
 	    } else {
 		System.out.println("This is a frequency-domain plugin");

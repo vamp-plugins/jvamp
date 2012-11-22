@@ -9,13 +9,13 @@ extern "C" {
 #endif
 
 JNIEXPORT jlong JNICALL Java_org_vamp_1plugins_PluginLoader_loadPluginNative
-  (JNIEnv *, jobject, jstring, jfloat);
+(JNIEnv *, jobject, jstring, jfloat, jint);
 
 JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_listPlugins
 (JNIEnv *, jobject);
 
 JNIEXPORT void JNICALL Java_org_vamp_1plugins_PluginLoader_initialise
-  (JNIEnv *, jobject);
+(JNIEnv *, jobject);
 
 JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_getPluginCategory
 (JNIEnv *, jobject, jstring);

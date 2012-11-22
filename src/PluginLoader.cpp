@@ -30,11 +30,12 @@ Java_org_vamp_1plugins_PluginLoader_listPlugins(JNIEnv *env, jobject obj)
 
 jlong
 Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
-						     jstring key, jfloat rate)
+						     jstring key, jfloat rate,
+						     jint flags)
 {
     PluginLoader *inst = getHandle<PluginLoader>(env, obj);
     const char *kstr = env->GetStringUTFChars(key, 0);
-    Plugin *p = inst->loadPlugin(kstr, rate, PluginLoader::ADAPT_ALL); //!!! args!
+    Plugin *p = inst->loadPlugin(kstr, rate, flags);
     env->ReleaseStringUTFChars(key, kstr);
     return (jlong)p;
 }
@@ -55,6 +56,4 @@ Java_org_vamp_1plugins_PluginLoader_getPluginCategory(JNIEnv *env, jobject obj,
     return result;
 }    
 
-    
-//!!! todo: loadPlugin adapters
 
