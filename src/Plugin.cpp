@@ -11,7 +11,7 @@ using Vamp::Plugin;
 using Vamp::PluginBase;
 using std::string;
 
-void
+JNIEXPORT void JNICALL
 Java_org_vamp_1plugins_Plugin_dispose(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -19,56 +19,56 @@ Java_org_vamp_1plugins_Plugin_dispose(JNIEnv *env, jobject obj)
     delete p;
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getVampApiVersion(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getVampApiVersion();
 }    
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getIdentifier(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getIdentifier().c_str());
 }
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getName(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getName().c_str());
 }
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getDescription(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getDescription().c_str());
 }
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getMaker(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getMaker().c_str());
 }
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getCopyright(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getCopyright().c_str());
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getPluginVersion(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getPluginVersion();
 }
 
-jobjectArray
+JNIEXPORT jobjectArray JNICALL
 Java_org_vamp_1plugins_Plugin_getParameterDescriptors(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -97,7 +97,7 @@ Java_org_vamp_1plugins_Plugin_getParameterDescriptors(JNIEnv *env, jobject obj)
     return result;
 }
 
-jfloat
+JNIEXPORT jfloat JNICALL
 Java_org_vamp_1plugins_Plugin_getParameter(JNIEnv *env, jobject obj,
 					   jstring param)
 {
@@ -108,7 +108,7 @@ Java_org_vamp_1plugins_Plugin_getParameter(JNIEnv *env, jobject obj,
     return f;
 }
 
-void
+JNIEXPORT void JNICALL
 Java_org_vamp_1plugins_Plugin_setParameter(JNIEnv *env, jobject obj,
 					   jstring param, jfloat f)
 {
@@ -118,7 +118,7 @@ Java_org_vamp_1plugins_Plugin_setParameter(JNIEnv *env, jobject obj,
     env->ReleaseStringUTFChars(param, s);
 }
 
-jobjectArray
+JNIEXPORT jobjectArray JNICALL
 Java_org_vamp_1plugins_Plugin_getPrograms(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -132,14 +132,14 @@ Java_org_vamp_1plugins_Plugin_getPrograms(JNIEnv *env, jobject obj)
     return result;
 }
 
-jstring
+JNIEXPORT jstring JNICALL
 Java_org_vamp_1plugins_Plugin_getCurrentProgram(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return env->NewStringUTF(p->getCurrentProgram().c_str());
 }
 
-void 
+JNIEXPORT void  JNICALL
 Java_org_vamp_1plugins_Plugin_selectProgram(JNIEnv *env, jobject obj,
 					    jstring program)
 {
@@ -149,7 +149,7 @@ Java_org_vamp_1plugins_Plugin_selectProgram(JNIEnv *env, jobject obj,
     env->ReleaseStringUTFChars(program, s);
 }
 
-jboolean
+JNIEXPORT jboolean JNICALL
 Java_org_vamp_1plugins_Plugin_initialise(JNIEnv *env, jobject obj,
 					 jint inputChannels, jint stepSize,
 					 jint blockSize)
@@ -158,14 +158,14 @@ Java_org_vamp_1plugins_Plugin_initialise(JNIEnv *env, jobject obj,
     return p->initialise(inputChannels, stepSize, blockSize);
 }
 
-void
+JNIEXPORT void JNICALL
 Java_org_vamp_1plugins_Plugin_reset(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     p->reset();
 }
 
-jobject
+JNIEXPORT jobject JNICALL
 Java_org_vamp_1plugins_Plugin_getInputDomain(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -184,35 +184,35 @@ Java_org_vamp_1plugins_Plugin_getInputDomain(JNIEnv *env, jobject obj)
     return e;
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getPreferredBlockSize(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getPreferredBlockSize();
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getPreferredStepSize(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getPreferredStepSize();
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getMinChannelCount(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getMinChannelCount();
 }
 
-jint
+JNIEXPORT jint JNICALL
 Java_org_vamp_1plugins_Plugin_getMaxChannelCount(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
     return p->getMaxChannelCount();
 }
 
-jobjectArray
+JNIEXPORT jobjectArray JNICALL
 Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -270,7 +270,7 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     return result;
 }
 
-static jobject
+JNIEXPORT static jobject
 convertFeature(JNIEnv *env, const Plugin::Feature &feature)
 {
     jclass featClass = env->FindClass("org/vamp_plugins/Feature");
@@ -287,7 +287,7 @@ convertFeature(JNIEnv *env, const Plugin::Feature &feature)
     return jfeature;
 }
 
-static jobject
+JNIEXPORT static jobject
 convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
 {
     jobject result;
@@ -333,7 +333,7 @@ convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
     return result;
 }
 
-jobject
+JNIEXPORT jobject JNICALL
 Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray data, jint offset, jobject timestamp)
 {
     Plugin *p = getHandle<Plugin>(env, obj);
@@ -362,7 +362,7 @@ Java_org_vamp_1plugins_Plugin_process(JNIEnv *env, jobject obj, jobjectArray dat
     return convertFeatures(env, features);
 }
 
-jobject
+JNIEXPORT jobject JNICALL
 Java_org_vamp_1plugins_Plugin_getRemainingFeatures(JNIEnv *env, jobject obj)
 {
     Plugin *p = getHandle<Plugin>(env, obj);

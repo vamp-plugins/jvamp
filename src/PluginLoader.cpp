@@ -7,14 +7,14 @@
 using Vamp::Plugin;
 using Vamp::HostExt::PluginLoader;
 
-void
+JNIEXPORT void JNICALL
 Java_org_vamp_1plugins_PluginLoader_initialise(JNIEnv *env, jobject obj)
 {
     PluginLoader *inst = PluginLoader::getInstance();
     setHandle(env, obj, inst);
 }
 
-jobjectArray
+JNIEXPORT jobjectArray JNICALL
 Java_org_vamp_1plugins_PluginLoader_listPlugins(JNIEnv *env, jobject obj)
 {
     PluginLoader *inst = getHandle<PluginLoader>(env, obj);
@@ -28,7 +28,7 @@ Java_org_vamp_1plugins_PluginLoader_listPlugins(JNIEnv *env, jobject obj)
     return result;
 }    
 
-jlong
+JNIEXPORT jlong JNICALL
 Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
 						     jstring key, jfloat rate,
 						     jint flags)
@@ -40,7 +40,7 @@ Java_org_vamp_1plugins_PluginLoader_loadPluginNative(JNIEnv *env, jobject obj,
     return (jlong)p;
 }
 
-jobjectArray
+JNIEXPORT jobjectArray JNICALL
 Java_org_vamp_1plugins_PluginLoader_getPluginCategory(JNIEnv *env, jobject obj,
 						      jstring key)
 {
