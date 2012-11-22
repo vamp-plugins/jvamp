@@ -59,5 +59,12 @@ for the proper platform. Bear this in mind when planning to distribute
 software using jVamp!
 
 
+License
+-------
+
+This code is freely redistributable under a "new-style BSD" licence.
+See the file COPYING for more details.
+
+
 Any questions? Contact me at cannam@all-day-breakfast.com.
 
