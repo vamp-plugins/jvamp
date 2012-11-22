@@ -15,7 +15,7 @@ CXXFLAGS := $(INCLUDES) -g -fPIC
 
 $(JAR):	$(JAVAFILES)
 	javac $^
-	jar cf $@ $^
+	jar cf $@ org/vamp_plugins
 
 $(LIBRARY): $(OBJFILES)
 	$(CXX) -shared -o $@ $^ -lvamp-hostsdk
