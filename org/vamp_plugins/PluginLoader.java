@@ -116,7 +116,7 @@ public class PluginLoader
 	 * timestamps on the output features in order to obtain
 	 * correct time stamping.
 	 */
-	public static final int ADAPT_BUFFER_SIZE = 3;
+	public static final int ADAPT_BUFFER_SIZE = 4;
 
 	/** 
 	 * ADAPT_ALL - Perform all available adaptations that are
