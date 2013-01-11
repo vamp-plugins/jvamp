@@ -34,8 +34,8 @@
 
 package org.vamp_plugins;
 
-import java.util.TreeMap;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
 
 /**
  * A Java wrapper for a native-code Vamp plugin. Plugins are obtained
@@ -293,7 +293,7 @@ public class Plugin
      * process call.  (These do not necessarily have to fall within
      * the process block, except for OneSamplePerStep outputs.)
      */
-    public TreeMap<Integer, ArrayList<Feature>>
+    public Map<Integer, List<Feature>>
 	process(float[][] inputBuffers,
 		RealTime timestamp) {
 	return process(inputBuffers, 0, timestamp);
@@ -305,7 +305,7 @@ public class Plugin
      * avoid potentially having to extract a set of sub-arrays from
      * longer arrays (fiddly in Java).
      */
-    public native TreeMap<Integer, ArrayList<Feature>>
+    public native Map<Integer, List<Feature>>
 	process(float[][] inputBuffers,
 		int offset,
 		RealTime timestamp);
@@ -314,7 +314,7 @@ public class Plugin
      * After all blocks have been processed, calculate and return any
      * remaining features derived from the complete input.
      */
-    public native TreeMap<Integer, ArrayList<Feature>>
+    public native Map<Integer, List<Feature>>
 	getRemainingFeatures();
 }
 
