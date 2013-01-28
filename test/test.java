@@ -32,8 +32,6 @@
     authorization.
 */
 
-import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.Map;
 import java.util.List;
 import java.lang.RuntimeException;
@@ -47,8 +45,8 @@ import org.vamp_plugins.RealTime;
 
 public class test
 {
-    private static void printFeatures(Map<Integer, ArrayList<Feature>> features) {
-	for (Map.Entry<Integer, ArrayList<Feature>> mi : features.entrySet()) {
+    private static void printFeatures(Map<Integer, List<Feature>> features) {
+	for (Map.Entry<Integer, List<Feature>> mi : features.entrySet()) {
 	    System.out.print(mi.getKey() + ": ");
 	    for (Feature li : mi.getValue()) {
 		System.out.print("[" + li.timestamp + "= ");
@@ -128,7 +126,7 @@ public class test
 		    buffers[0][1] = -0.5f;
 		}
 		RealTime timestamp = RealTime.frame2RealTime(block * 1024, 44100);
-		TreeMap<Integer, ArrayList<Feature>>
+		Map<Integer, List<Feature>>
 		    features = p.process(buffers, timestamp);
 
 		timestamp.dispose();
@@ -136,7 +134,7 @@ public class test
 		printFeatures(features);
 	    }
 
-	    TreeMap<Integer, ArrayList<Feature>>
+	    Map<Integer, List<Feature>>
 		features = p.getRemainingFeatures();
 
 	    System.out.println("Results from getRemainingFeatures:");
