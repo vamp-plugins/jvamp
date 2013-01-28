@@ -32,7 +32,7 @@
     authorization.
 */
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.List;
@@ -56,7 +56,7 @@ import java.io.IOException;
 public class host
 {
     private static void printFeatures(RealTime frameTime, Integer output,
-				      Map<Integer, ArrayList<Feature>> features)
+				      Map<Integer, List<Feature>> features)
     {
 	if (!features.containsKey(output)) return;
 
@@ -198,7 +198,7 @@ public class host
 		    RealTime timestamp = RealTime.frame2RealTime
 			(block * blockSize, (int)(rate + 0.5));
 
-		    TreeMap<Integer, ArrayList<Feature>>
+		    Map<Integer, List<Feature>>
 			features = p.process(buffers, timestamp);
 
 		    printFeatures(timestamp, outputNumber, features);
@@ -209,7 +209,7 @@ public class host
 		++block;
 	    }
 
-	    TreeMap<Integer, ArrayList<Feature>>
+	    Map<Integer, List<Feature>>
 		features = p.getRemainingFeatures();
 
 	    RealTime timestamp = RealTime.frame2RealTime
