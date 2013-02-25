@@ -20,6 +20,9 @@ JNIEXPORT void JNICALL Java_org_vamp_1plugins_PluginLoader_initialise
 JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_getPluginCategory
 (JNIEnv *, jobject, jstring);
 
+JNIEXPORT jobjectArray JNICALL Java_org_vamp_1plugins_PluginLoader_getPluginPath
+(JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

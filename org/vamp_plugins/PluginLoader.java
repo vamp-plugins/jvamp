@@ -165,6 +165,15 @@ public class PluginLoader
      */
     public native String[] getPluginCategory(String key);
 
+    /**
+     * Return the plugin path, that is, the series of local file
+     * folders that will be searched for plugin files. This is
+     * platform-specific; it may be a default path, or it may be
+     * determined by factors such as the VAMP_PATH environment
+     * variable.
+     */
+    public native String[] getPluginPath();
+
     private PluginLoader() { initialise(); }
     private native long loadPluginNative(String key, float inputSampleRate,
 					 int adapterFlags);

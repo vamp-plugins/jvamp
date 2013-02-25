@@ -35,6 +35,7 @@
 #include "org_vamp_plugins_PluginLoader.h"
 
 #include <vamp-hostsdk/PluginLoader.h>
+#include <vamp-hostsdk/PluginHostAdapter.h>
 
 #include "handle.h"
 
@@ -90,4 +91,16 @@ Java_org_vamp_1plugins_PluginLoader_getPluginCategory(JNIEnv *env, jobject obj,
     return result;
 }    
 
+JNIEXPORT jobjectArray JNICALL
+Java_org_vamp_1plugins_PluginLoader_getPluginPath(JNIEnv *env, jobject obj)
+{
+    std::vector<std::string> path = Vamp::PluginHostAdapter::getPluginPath();
+    jobjectArray result = env->NewObjectArray
+	(path.size(), env->FindClass("java/lang/String"), 0);
+    for (int i = 0; i < path.size(); ++i) {
+	env->SetObjectArrayElement(result, i,
+				   env->NewStringUTF(path[i].c_str()));
+    }
+    return result;
+}    
 
