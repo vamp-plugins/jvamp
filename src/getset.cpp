@@ -110,7 +110,7 @@ setStringArrayField(JNIEnv *env, jobject obj, std::string name, std::vector<std:
 {
     jclass strCls = env->FindClass("java/lang/String");
     jobjectArray jarr = env->NewObjectArray(values.size(), strCls, 0);
-    for (int i = 0; i < values.size(); ++i) {
+    for (int i = 0; i < (int)values.size(); ++i) {
 	env->SetObjectArrayElement(jarr, i, env->NewStringUTF(values[i].c_str()));
     }
     setObjectField(env, obj, name, "[Ljava/lang/String;", jarr);

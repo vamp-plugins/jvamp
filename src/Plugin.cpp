@@ -109,7 +109,7 @@ Java_org_vamp_1plugins_Plugin_getParameterDescriptors(JNIEnv *env, jobject obj)
     PluginBase::ParameterList params = p->getParameterDescriptors();
     jclass descClass = env->FindClass("org/vamp_plugins/ParameterDescriptor");
     jobjectArray result = env->NewObjectArray(params.size(), descClass, 0);
-    for (int i = 0; i < params.size(); ++i) {
+    for (int i = 0; i < (int)params.size(); ++i) {
 
 	jmethodID ctor = env->GetMethodID(descClass, "<init>", "()V");
 	jobject desc = env->NewObject(descClass, ctor);
@@ -159,7 +159,7 @@ Java_org_vamp_1plugins_Plugin_getPrograms(JNIEnv *env, jobject obj)
     PluginBase::ProgramList programs = p->getPrograms();
     jobjectArray result = env->NewObjectArray
 	(programs.size(), env->FindClass("java/lang/String"), 0);
-    for (int i = 0; i < programs.size(); ++i) {
+    for (int i = 0; i < (int)programs.size(); ++i) {
 	env->SetObjectArrayElement(result, i,
 				   env->NewStringUTF(programs[i].c_str()));
     }
@@ -253,7 +253,7 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     Plugin::OutputList outputs = p->getOutputDescriptors();
     jclass descClass = env->FindClass("org/vamp_plugins/OutputDescriptor");
     jobjectArray result = env->NewObjectArray(outputs.size(), descClass, 0);
-    for (int i = 0; i < outputs.size(); ++i) {
+    for (int i = 0; i < (int)outputs.size(); ++i) {
 
 	jmethodID ctor = env->GetMethodID(descClass, "<init>", "()V");
 	jobject desc = env->NewObject(descClass, ctor);
@@ -304,7 +304,7 @@ Java_org_vamp_1plugins_Plugin_getOutputDescriptors(JNIEnv *env, jobject obj)
     return result;
 }
 
-JNIEXPORT static jobject
+static jobject
 convertFeature(JNIEnv *env, const Plugin::Feature &feature)
 {
     jclass featClass = env->FindClass("org/vamp_plugins/Feature");
@@ -321,7 +321,7 @@ convertFeature(JNIEnv *env, const Plugin::Feature &feature)
     return jfeature;
 }
 
-JNIEXPORT static jobject
+static jobject
 convertFeatures(JNIEnv *env, const Plugin::FeatureSet &features)
 {
     jobject result;

@@ -56,7 +56,7 @@ Java_org_vamp_1plugins_PluginLoader_listPlugins(JNIEnv *env, jobject obj)
     PluginLoader::PluginKeyList plugins = inst->listPlugins();
     jobjectArray result = env->NewObjectArray
 	(plugins.size(), env->FindClass("java/lang/String"), 0);
-    for (int i = 0; i < plugins.size(); ++i) {
+    for (int i = 0; i < (int)plugins.size(); ++i) {
 	env->SetObjectArrayElement(result, i,
 				   env->NewStringUTF(plugins[i].c_str()));
     }
@@ -84,7 +84,7 @@ Java_org_vamp_1plugins_PluginLoader_getPluginCategory(JNIEnv *env, jobject obj,
     PluginLoader::PluginCategoryHierarchy cat = inst->getPluginCategory(kstr);
     jobjectArray result = env->NewObjectArray
 	(cat.size(), env->FindClass("java/lang/String"), 0);
-    for (int i = 0; i < cat.size(); ++i) {
+    for (int i = 0; i < (int)cat.size(); ++i) {
 	env->SetObjectArrayElement(result, i,
 				   env->NewStringUTF(cat[i].c_str()));
     }
@@ -97,7 +97,7 @@ Java_org_vamp_1plugins_PluginLoader_getPluginPath(JNIEnv *env, jobject obj)
     std::vector<std::string> path = Vamp::PluginHostAdapter::getPluginPath();
     jobjectArray result = env->NewObjectArray
 	(path.size(), env->FindClass("java/lang/String"), 0);
-    for (int i = 0; i < path.size(); ++i) {
+    for (int i = 0; i < (int)path.size(); ++i) {
 	env->SetObjectArrayElement(result, i,
 				   env->NewStringUTF(path[i].c_str()));
     }

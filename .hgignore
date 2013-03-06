@@ -5,3 +5,15 @@ syntax: glob
 *.so
 *.orig
 
+*.obj
+*.tlog
+re:^Debug/
+re:^Release/
+*.ipch
+*.jar
+*.dll
+*.sdf
+*.opensdf
+*.suo
+re:^jVamp\.vcxproj\.filters$
+re:^jVamp\.vcxproj\.user$
