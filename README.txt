@@ -2,7 +2,7 @@
 jVamp -- a Java host interface for Vamp audio analysis plugins
 ==============================================================
 
-Chris Cannam, 2012
+Chris Cannam, 2012-2013
 http://code.soundsoftware.ac.uk/projects/jvamp
 
 jVamp is a JNI (Java Native Interface) library that permits Java
@@ -33,10 +33,10 @@ test/ -> Self-contained basic exercise test
 Example
 -------
 
-On Linux:
+On Linux or OS/X
 
-1. Run "make", to build the Java code (as jvamp.jar) and JNI wrapper
-   (as libvamp-jni.so).
+1. Run "make" (on Linux) or "make -f Makefile.osx" (on OS/X) to build
+   the classes (jvamp.jar) and JNI wrapper (libvamp-jni.so or .dylib).
 
 2. Build the host:
 
@@ -51,7 +51,6 @@ On Linux:
    it will be one line of the form
 
    0.002902494, 9.999092970: 142.07474 142.1 bpm
-
 
 Note that you need the native-code libvamp-jni.so in your Java load
 path in order to run a host using jVamp, and it must have been built
