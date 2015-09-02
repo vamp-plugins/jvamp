@@ -106,7 +106,7 @@ Java_org_vamp_1plugins_RealTime_frame2RealTime(JNIEnv *env, jclass cls, jlong fr
 {
     jclass rtClass = env->FindClass("org/vamp_plugins/RealTime");
     jmethodID rtCtor = env->GetMethodID(rtClass, "<init>", "(II)V");
-    RealTime rt = RealTime::frame2RealTime(frame, sampleRate);
+    RealTime rt = RealTime::frame2RealTime(long(frame), sampleRate);
     return env->NewObject(rtClass, rtCtor, rt.sec, rt.nsec);
 }
 
