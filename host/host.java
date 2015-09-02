@@ -202,8 +202,6 @@ public class host
 			features = p.process(buffers, timestamp);
 
 		    printFeatures(timestamp, outputNumber, features);
-
-		    timestamp.dispose();
 		}
 		
 		++block;
@@ -215,7 +213,6 @@ public class host
 	    RealTime timestamp = RealTime.frame2RealTime
 		(block * blockSize, (int)(rate + 0.5));
 	    printFeatures(timestamp, outputNumber, features);
-	    timestamp.dispose();
 
 	    p.dispose();
 

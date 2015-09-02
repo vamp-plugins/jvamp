@@ -1,0 +1,17 @@
+
+Changes in jVamp v1.3 since the previous release v1.2
+
+ * Remove RealTime.dispose() method: RealTime is no longer implemented
+   with a native handle (too onerous in practice)
+
+Changes in jVamp v1.2 since the previous release v1.1
+
+ * Add getPluginPath method
+ * Add build support for Visual C++ on Windows
+
+Changes in jVamp v1.1 since the previous release v1.0
+
+ * Correct value of ADAPT_BUFFER_SIZE constant
+ * Use abstract interfaces in API (Map instead of TreeMap, etc)
+
+

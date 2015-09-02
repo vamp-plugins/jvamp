@@ -2,7 +2,12 @@
 JAR := jvamp.jar
 LIBRARY := libvamp-jni.so
 
-all: $(JAR) $(LIBRARY)
+HOST	:= host/host.class
+TEST	:= test/test.class
+
+all: $(JAR) $(LIBRARY) $(HOST)
+test:	$(TEST)
+	java -classpath $(JAR):test test
 
 OBJFILES := src/PluginLoader.o src/Plugin.o src/RealTime.o src/getset.o
 
@@ -20,8 +25,14 @@ $(JAR):	$(JAVAFILES)
 $(LIBRARY): $(OBJFILES)
 	$(CXX) -shared -o $@ $^ -lvamp-hostsdk
 
+$(HOST):	host/host.java $(JAR)
+	javac -classpath $(JAR) $<
+
+$(TEST):	test/test.java $(JAR)
+	javac -classpath $(JAR) $<
+
 clean:
-	rm -f $(OBJFILES) $(CLASSFILES)
+	rm -f $(OBJFILES) $(CLASSFILES) $(HOST) $(TEST)
 
 distclean:	clean
 	rm $(JAR) $(LIBRARY)

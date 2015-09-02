@@ -2,7 +2,7 @@
 jVamp -- a Java host interface for Vamp audio analysis plugins
 ==============================================================
 
-Chris Cannam, 2012-2013
+Chris Cannam, 2012-2015
 http://code.soundsoftware.ac.uk/projects/jvamp
 
 jVamp is a JNI (Java Native Interface) library that permits Java
