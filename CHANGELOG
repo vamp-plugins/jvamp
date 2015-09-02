@@ -2,7 +2,8 @@
 Changes in jVamp v1.3 since the previous release v1.2
 
  * Remove RealTime.dispose() method: RealTime is no longer implemented
-   with a native handle (too onerous in practice)
+   with a native handle, as it was too onerous to manage in practice.
+   Now the only class on which you need to call dispose() is Plugin.
 
 Changes in jVamp v1.2 since the previous release v1.1
 
