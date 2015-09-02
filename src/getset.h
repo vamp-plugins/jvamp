@@ -45,6 +45,9 @@
 extern int
 getIntField(JNIEnv *env, jobject obj, std::string name);
 
+extern Vamp::RealTime
+getRealTime(JNIEnv *env, jobject obj); // where obj is a RealTime object
+    
 extern void
 setStringField(JNIEnv *env, jobject obj, std::string name, std::string value);
 

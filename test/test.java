@@ -126,10 +126,7 @@ public class test
 		    buffers[0][1] = -0.5f;
 		}
 		RealTime timestamp = RealTime.frame2RealTime(block * 1024, 44100);
-		Map<Integer, List<Feature>>
-		    features = p.process(buffers, timestamp);
-
-		timestamp.dispose();
+		Map<Integer, List<Feature>> features = p.process(buffers, timestamp);
 
 		printFeatures(features);
 	    }

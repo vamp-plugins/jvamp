@@ -44,6 +44,14 @@ getIntField(JNIEnv *env, jobject obj, std::string name)
 			    env->GetFieldID(cls, name.c_str(), "I"));
 }
 
+Vamp::RealTime
+getRealTime(JNIEnv *env, jobject obj)
+{
+    int s = getIntField(env, obj, "m_s");
+    int n = getIntField(env, obj, "m_n");
+    return Vamp::RealTime(s, n);
+}
+
 void
 setStringField(JNIEnv *env, jobject obj, std::string name, std::string value)
 {

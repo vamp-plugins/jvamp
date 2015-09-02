@@ -7,13 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     org_vamp_plugins_RealTime
- * Method:    dispose
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_vamp_1plugins_RealTime_dispose
-  (JNIEnv *, jobject);
 
 /*
  * Class:     org_vamp_plugins_RealTime
