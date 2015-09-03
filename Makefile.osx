@@ -2,6 +2,8 @@
 JAR := jvamp.jar
 LIBRARY := libvamp-jni.dylib
 
+JAVA_HOME  := /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
+
 HOST	:= host/host.class
 TEST	:= test/test.class
 
@@ -15,7 +17,7 @@ JAVAFILES := org/vamp_plugins/Feature.java org/vamp_plugins/OutputDescriptor.jav
 
 CLASSFILES := $(patsubst %.java,%.class,$(JAVAFILES))
 
-INCLUDES := -I/Library/Java/JavaVirtualMachines/1.6.0_37-b06-434.jdk/Contents/Headers -I../vamp-plugin-sdk $(INCLUDES)
+INCLUDES := -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin -I../vamp-plugin-sdk $(INCLUDES)
 
 CXXFLAGS := $(INCLUDES) -g -fPIC
 
