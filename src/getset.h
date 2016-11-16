@@ -32,8 +32,8 @@
     authorization.
 */
 
-#ifndef _GETSET_H_INCLUDED_
-#define _GETSET_H_INCLUDED_
+#ifndef JVAMP_GETSET_H_INCLUDED
+#define JVAMP_GETSET_H_INCLUDED
 
 #include <jni.h>
 

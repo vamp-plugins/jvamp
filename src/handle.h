@@ -32,8 +32,8 @@
     authorization.
 */
 
-#ifndef _HANDLE_H_INCLUDED_
-#define _HANDLE_H_INCLUDED_
+#ifndef JVAMP_HANDLE_H_INCLUDED
+#define JVAMP_HANDLE_H_INCLUDED
 
 inline jfieldID getHandleField(JNIEnv *env, jobject obj)
 {
